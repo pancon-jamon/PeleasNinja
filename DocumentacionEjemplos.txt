@@ -1,0 +1,26 @@
+#Al inicio de los codigos :
+"""
+Nombre: calculadora.py
+Autor: Juan Pérez
+Fecha: 15/10/2023
+Versión: 1.0
+Licencia: MIT
+Descripción: Módulo para operaciones matemáticas básicas (suma, resta, multiplicación, división).
+"""
+#Para cada funcion
+def suma(a, b):
+    """
+    Suma dos números y devuelve el resultado.
+    
+    Args:
+        a (float/int): Primer número.
+        b (float/int): Segundo número.
+    
+    Returns:
+        float/int: Resultado de la suma.
+    
+    Ejemplo:
+        >>> suma(3, 5)
+        8
+    """
+    return a + b
