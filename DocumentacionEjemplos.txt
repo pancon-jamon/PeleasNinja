@@ -24,3 +24,5 @@ def suma(a, b):
         8
     """
     return a + b
+
+estructuraDiccionarioNinjas ={nombre : [fuerza, agilidad, resistencia, estilo, puntos] }
