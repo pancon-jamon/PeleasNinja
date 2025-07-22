@@ -1,5 +1,11 @@
 #Crear LogIn
 import os 
+def crearArchivoUsuarios():
+    if os.path.isfile("usuarios.txt"):
+        pass
+    else:
+        with open("usuarios.txt","w"):
+            pass
 
 def registrarUsuario(): 
     numeros = "1234567890"
@@ -34,8 +40,15 @@ def registrarUsuario():
             if n_mayusculas and n_numeros:
                 print("Contraseña valida")
                 break
+    esAdmin=input("Es admin? (si/no): ")
+    if esAdmin.lower() == "si":
+        admin = 1
+    elif esAdmin.lower() == "no":
+        admin = 0
+    else:
+        print("Escriba una opcion valida")
     with open("usuarios.txt","a") as usuarios:
-        usuarios.write(f"{usuario}|{contraseña}|{nombres}|{edad}\n")
+        usuarios.write(f"{usuario}|{contraseña}|{nombres}|{edad}|{admin}\n")
 
 def iniciarSesion():
     intento = 0
@@ -50,10 +63,15 @@ def iniciarSesion():
                 if usuario in l: 
                     usuario_correcto=l.split('|')[0]
                     contraseña_correcta=l.split('|')[1]
+                    admin = int(l.split('|')[-1])
         if usuario == usuario_correcto and contraseña == contraseña_correcta:
             print("Bienvenido")
-            menu() 
-            break  
+            if admin == 1:
+                menuAdmin()
+                break
+            else:
+                menuUsuario()
+                break
         else:
             print("Error") 
             print()
@@ -77,14 +95,18 @@ def ingresar():
         else:
             print("Escriba una opcion valida")
         
-def menu(): 
+def menuUsuario(): 
     print("Ejemplo de otra funcion")
     print("1. Ver ninjas")
     print("2. Escoger ninjas")
     print("3. Iniciar")
     print("4. Salir")
 
+def menuAdmin():
+    print("Eres admin")
+
 def main():
+    crearArchivoUsuarios()
     ingresar()
 
 main()
