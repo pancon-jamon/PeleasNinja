@@ -1,6 +1,6 @@
 import tkinter as tk                # Importa la biblioteca Tkinter para interfaces gráficas
 from tkinter import messagebox      # Importa la función de cuadros de mensaje
-from CrudAdministrador.CRUD import CrudAdministracion as admin#Usar __init__.py para usar directorios como paquetes
+from CrudAdministrador.CRUD import CrudAdministracion as admin #Usar __init__.py para usar directorios como paquetes
 
 
 # Datos de acceso correctos (puedes cambiarlos)

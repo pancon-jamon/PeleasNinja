@@ -63,17 +63,30 @@ def listarNinjas():
     print("\n--- Lista de Ninjas ---")
     for nombre, atributos in ninjas_ordenados:
         print(f"""
-Nombre: {nombre}
-Fuerza: {atributos[0]}
-Agilidad: {atributos[1]}
-Resistencia: {atributos[2]}
-Estilo de pelea: {atributos[3]}
-Puntos: {atributos[4]}
-""")
+                Nombre: {nombre}
+                Fuerza: {atributos[0]}
+                Agilidad: {atributos[1]}
+                Resistencia: {atributos[2]}
+                Estilo de pelea: {atributos[3]}
+                Puntos: {atributos[4]}
+                """)
 
+def eliminarNinja():
+    if not estructuraDiccionarioNinjas:
+        print("No hay ninjas registrados.")
+        return
+    
+    nombre = input("Ingrese el nombre del ninja que desea eliminar: ").strip()
+    if nombre in estructuraDiccionarioNinjas:
+        del estructuraDiccionarioNinjas[nombre]
+        print(f"Ninja {nombre} eliminado exitosamente.")
+    else:
+        print("Ese no se encuentra registrado.")
 
 cargarNinjas()
 
 agregarNinja()
 
 listarNinjas()
+
+eliminarNinja()
