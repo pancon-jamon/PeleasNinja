@@ -81,7 +81,7 @@ def eliminarNinja():
         del estructuraDiccionarioNinjas[nombre]
         print(f"Ninja {nombre} eliminado exitosamente.")
     else:
-        print("Ese no se encuentra registrado.")
+        print("Ese ninja no se encuentra registrado.")
 
 cargarNinjas()
 
