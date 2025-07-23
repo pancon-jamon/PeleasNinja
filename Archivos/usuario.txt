@@ -1,0 +1,2 @@
+claudia.coello@gmail.com|0123456789A|Claudia Coello|21|si
+david.donoso@gmail.com|0123456789B|david donoso|20|1|si
