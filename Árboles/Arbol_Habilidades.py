@@ -42,6 +42,7 @@ estiloAsesino_habilidades = {
                  "izquierda":None,"derecha":None
     },
     "derecha":{"habilidad":"Guillotina",
+               "puntos":3,
                "izquierda":{"habilidad":"Golpe Rápido",
                             "puntos":2,
                             "izquierda":None,"derecha":None                   

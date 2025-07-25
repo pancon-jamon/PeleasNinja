@@ -1,6 +1,6 @@
 Estilo de pelea Tirador:
 {'habilidad': 'Flecha de Cristal Encantada', 'puntos': 5, 'izquierda': {'habilidad': 'Tiro Místico', 'puntos': 4, 'izquierda': {'habilidad': 'Disparo Halcón', 'puntos': 2, 'izquierda': None, 'derecha': None}, 'derecha': None}, 'derecha': {'habilidad': 'Lluvia de Kunais', 'puntos': 3, 'izquierda': None, 'derecha': None}}
 Estilo de pelea Asesino:
-{'habilidad': 'Último Suspiro', 'puntos': 5, 'izquierda': {'habilidad': 'Ejecución Perfecta', 'puntos': 4, 'izquierda': None, 'derecha': None}, 'derecha': {'habilidad': 'Guillotina', 'izquierda': {'habilidad': 'Golpe Rápido', 'puntos': 2, 'izquierda': None, 'derecha': None}, 'derecha': None}}
+{'habilidad': 'Último Suspiro', 'puntos': 5, 'izquierda': {'habilidad': 'Ejecución Perfecta', 'puntos': 4, 'izquierda': None, 'derecha': None}, 'derecha': {'habilidad': 'Guillotina', 'puntos': 3, 'izquierda': {'habilidad': 'Golpe Rápido', 'puntos': 2, 'izquierda': None, 'derecha': None}, 'derecha': None}}
 Estilo de pelea Tanque:
 {'habilidad': 'Heraldo de la Destrucción', 'puntos': 5, 'izquierda': {'habilidad': 'Golpe Decisivo', 'puntos': 4, 'izquierda': None, 'derecha': {'habilidad': 'Golpe Meteoro', 'puntos': 2, 'izquierda': None, 'derecha': None}}, 'derecha': {'habilidad': 'Grito Primal', 'puntos': 3, 'izquierda': None, 'derecha': None}}
