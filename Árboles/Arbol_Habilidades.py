@@ -11,6 +11,8 @@ random: en este caso puntual, para asignar aleatoriamente los estilos de pelea (
 Funciones: 
 crear_archivo_habilidades(): crea y guarda los árboles binarios de habilidades de cada estilo de pelea de los ninjas, 
                              en caso de ya existir el archivo no lo va a crear.
+asignarEstiloAleatorio(lista_ninjas,lista_estilos): asigna aleatoriamente los estilos de pelea (árboles de habilidades)
+                                                    a cada ninja creado.
 """
 
 import os
