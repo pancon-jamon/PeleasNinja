@@ -73,12 +73,17 @@ Puntos: {atributos[4]}
 def pelea(ninja1,ninja2):
         datos1 = estructuraDiccionarioNinjas[ninja1]
         datos2 = estructuraDiccionarioNinjas[ninja2]
-        print(f"{ninja1} VS {ninja2}")
+        datos1[4] += (datos1[1]-datos2[1])-datos1[2]
+        datos2[4] += (datos2[1]-datos1[1])-datos2[2]
+        print(f"\n{ninja1} VS {ninja2}\n")
         print(f"{ninja1}\nEstadisticas:\nFuerza: {datos1[0]}\nAgilidad: {datos1[1]}\nResistencia: {datos1[2]}\nEstilo de pelea: {datos1[3]}\nPuntos: {datos1[4]}\n")
         print(f"{ninja2}\nEstadisticas:\nFuerza: {datos2[0]}\nAgilidad: {datos2[1]}\nResistencia: {datos2[2]}\nEstilo de pelea: {datos2[3]}\nPuntos: {datos2[4]}\n")
         if estructuraDiccionarioNinjas[ninja1][4]<estructuraDiccionarioNinjas[ninja2][4]:
             print(f"{ninja2} es el ganador del enfrentamiento\n")
             return ninja2
+        elif estructuraDiccionarioNinjas[ninja1][4]==estructuraDiccionarioNinjas[ninja2][4]:
+            print("Empate entre los ninjas")
+            return random.choice([ninja1,ninja2])
         else:
             print(f"{ninja1} es el ganador del enfrentamiento\n")
             return ninja1
