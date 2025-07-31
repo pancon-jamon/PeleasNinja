@@ -1,6 +1,12 @@
 import estructuras
 import funcionesAdministrador
 import funcionesUsuario
+import os
+
+archivo_usuarios = "Archivos/usuarios.txt"
+
+def obtener_email_usuario(email):
+    return email
 
 def listarNinjas():
     if not estructuras.diccionarioNinjas:
@@ -42,48 +48,75 @@ def menuAdministrador():
         print("6. Crear Habilidades de Ninja")
         print("7. Guardar Cambios")
         print("8. Salir")
-        opcion = input("Seleccione una opcion: ")
+
+        try:
+            opcion = int(input("Seleccione una opción: "))
+
+            if not opcion:
+                print("No puede dejar el campo vacío!")
+                continue
+            if not 1 <= opcion <= 3:
+                print("Opción inválida, por favor intente de nuevo.")
+                continue
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
+            continue
+
         match opcion:
-            case '1':
+            case 1:
                 listarNinjas()
-            case '2':
+            case 2:
                 funcionesAdministrador.agregarNinja()
-            case '3':
+            case 3:
                 funcionesAdministrador.consultarNinja(funcionesAdministrador.buscarNinja())
-            case '4':
-                pass#Funcion No lista
-            case '5':
+            case 4:
+                funcionesAdministrador.actualizarNinja()
+            case 5:
                 funcionesAdministrador.eliminarNinja(funcionesAdministrador.buscarNinja())
-            case '6':
-                pass#Funcion No lista
-            case '7':
-                pass#Funcion No lista
-            case '8':
-                print("Saliendo")
+            case 6:
+                funcionesAdministrador.crearHabilidadesNinja()
+            case 7:
+                funcionesAdministrador.guardarCambios()
+            case 8:
+                print("Saliendo...")
                 break
             case _:
                 print("Escriba una opcion valida")
 
 #FUNCION MENU USUARIO
-def menuUsuario():
+def menuUsuario(usuario_email):
     while True:
-        print("1. Listar Personajes")
-        print("2. Pelear contra ninjas")
-        print("3. Comenzar Torneo")
-        print("4. Salir")
-        opcion = input("Seleccione una opcion: ")
+        print("\n1. Listar Personajes")
+        print("2. PvP")
+        print("3. Torneo")
+        print("4. Ver Ranking")
+        print("5. Salir")
+        try:
+            opcion = int(input("Seleccione una opción: "))
+
+            if not opcion:
+                print("No puede dejar el campo vacío!")
+                continue
+            if not 1 <= opcion <= 5:
+                print("Opción inválida, por favor intente de nuevo.")
+                continue
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
+            continue
+
         match opcion:
-            case '1':
+            case 1:
                 listarNinjas()
-            case '2':
-                pass#Funcion No lista
-            case '3':
-                pass#Funcion No lista
-            case '4':
-                print("Saliendo")
+            case 2:
+                funcionesUsuario.pvp(usuario_email)
+            case 3:
+                funcionesUsuario.torneoNinja()
+            case 4:
+                funcionesUsuario.mostrar_ranking()
+            case 5:
                 break
             case _:
-                print("Escriba una opcion valida")
+                print("Opción inválida")
 
 #FUNCIONES LOGIN
 
@@ -92,19 +125,44 @@ def registrarUsuario():
     n_numeros = False
     mayusculas = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
     n_mayusculas = False
+
     print("Registrando Usuario")
-    nombre = input("Nombre: ")
-    apellido = input("Apelldo: ")
+
+    while True:
+        nombre = input("Nombre: ")
+        if not nombre.strip():
+            print("El nombre no puede estar vacío.")
+            continue
+
+        apellido = input("Apelldo: ")
+        if not apellido.strip():
+            print("El apellido no puede estar vacío.")
+            continue
+        break
+
     nombres = f"{nombre} {apellido}" 
-    edad = input("Edad: ")
+
+    while True:
+        try:
+            edad = int(input("Edad: "))
+            if edad < 0:
+                print("La edad no puede ser negativa.")
+                continue
+            break
+        except ValueError:
+            print("Por favor, ingrese un número válido para la edad.")
+
     usuario = f"{nombre.lower()}.{apellido.lower()}@gmail.com" 
     print()
+
     with open("usuarios.txt","r") as archivo: 
         for l in archivo:                     
             if usuario in l:
                 print("El usuario ya existe!!")
                 return
+            
     print(f"Su usuario es: {usuario}")
+
     while True:
         print("La contraseña debe tener minimo 8 caracteres, 1 numero, 1 mayuscula")
         contraseña = input("Contraseña: ")
@@ -120,58 +178,67 @@ def registrarUsuario():
             if n_mayusculas and n_numeros:
                 print("Contraseña valida")
                 break
-    esAdmin=input("Es admin? (si/no): ")
-    if esAdmin.lower() == "si":
-        admin = 1
-    elif esAdmin.lower() == "no":
-        admin = 0
-    else:
-        print("Escriba una opcion valida")
-    with open("usuarios.txt","a") as usuarios:
-        usuarios.write(f"{usuario}|{contraseña}|{nombres}|{edad}|{admin}\n")
+
+    while True:
+        esAdmin=input("Es admin? (si/no): ")
+        if esAdmin.lower() == "si":
+            admin = 1
+        elif esAdmin.lower() == "no":
+            admin = 0
+        else:
+            print("Escriba una opcion valida")
+        with open("usuarios.txt","a") as usuarios:
+            usuarios.write(f"{usuario}|{contraseña}|{nombres}|{edad}|{admin}\n")
 
 def iniciarSesion():
-    intento = 0
-    usuario_correcto="admin" 
-    contraseña_correcta="admin"
-    admin = 1
-    print("Inicio de Sesion")
-    while intento<3:
-        usuario = input("Usuario: ")
-        contraseña = input("Contraseña: ")
-        with open("usuarios.txt","r") as usuarios:
-            for l in usuarios: 
-                if usuario in l: 
-                    usuario_correcto=l.split('|')[0]
-                    contraseña_correcta=l.split('|')[1]
-                    admin = int(l.split('|')[-1])
-        if usuario == usuario_correcto and contraseña == contraseña_correcta:
-            print("Bienvenido")
-            if admin == 1:
-                menuAdministrador()
-                break
-            else:
-                menuUsuario()
-                break
-        else:
-            print("Error") 
-            print()
-            intento += 1
-    print()
-    print("Regresando")
+    usuario = input("Usuario: ").strip()
+    contraseña = input("Contraseña: ").strip()
+    with open("usuarios.txt", "r") as f:
+        for linea in f:
+            datos = linea.strip().split("|")
+            if usuario == datos[0] and contraseña == datos[1]:
+                obtener_email_usuario(datos[0])
+                if datos[2] == "1":
+                    menuAdministrador()
+                else:
+                    menuUsuario(usuario)
+                return
+    print("Login incorrecto.")
 
 def ingresar(): 
     while True:    
         print("\n1. Iniciar Sesion") 
         print("2. Registrar Cuenta")
         print("3. Cerrar")
-        opcion= input("Que quiere hacer?: ")
-        if opcion == '1':
+
+        try:
+            opcion = int(input("Seleccione una opcion: "))
+
+            if not opcion:
+                print("No puede dejar el campo vacio")
+                continue
+            if not 1 <= opcion <= 3:
+                print("Opcion invalida, por favor intente de nuevo.")
+                continue
+
+        except ValueError:
+            print("Por favor, ingrese un numero.")
+            continue
+        
+        if opcion == 1:
+            if not os.path.exists("usuarios.txt"):
+                open("usuarios.txt", "w").close()
+                print("No hay usuarios registrados. Por favor, registre una cuenta.")
+                registrarUsuario()
+                print(end="\r")
+
             iniciarSesion()
-        elif opcion == '2':
+        elif opcion == 2:
             registrarUsuario()
-        elif opcion == '3':
+        elif opcion == 3:
             print("Cerrando") 
             break
         else:
             print("Escriba una opcion valida")
+
+ingresar()
