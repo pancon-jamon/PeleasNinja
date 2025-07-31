@@ -78,6 +78,22 @@ def definir_ninja_maquina(ninjas_disponibles):
         return diccionarioNinja
 
 #Torneo
+def buscar_puntos(nodo, habilidad_buscada):
+    if nodo is None:
+        return 0
+    if nodo["habilidad"] == habilidad_buscada:
+        return nodo["puntos"]
+    # Buscar en subárbol izquierdo y derecho
+    puntos_izquierda = buscar_puntos(nodo["izquierda"], habilidad_buscada)
+    if puntos_izquierda > 0:
+        return puntos_izquierda
+    return buscar_puntos(nodo["derecha"], habilidad_buscada)
+
+def puntos_habilidad(nodo, recorrido):
+    total = 0
+    for habilidad in recorrido:
+        total += buscar_puntos(nodo, habilidad)
+    return total
 
 def listarNinjas():
     if not estructuras.estructuraDiccionarioNinjas:
