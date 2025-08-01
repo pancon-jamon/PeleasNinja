@@ -1,6 +1,6 @@
 import estructuras
+import archivos
 import funcionesAdministrador
-import funcionesUsuario
 
 def listarNinjas():
     if not estructuras.diccionarioNinjas:
@@ -15,21 +15,14 @@ def listarNinjas():
     if opcion == "1":
         ninjas_ordenados = sorted(estructuras.diccionarioNinjas.items())
     elif opcion == "2":
-        ninjas_ordenados = sorted(estructuras.diccionarioNinjas.items(), key=lambda x: x[1][4], reverse=True)
+        ninjas_ordenados = sorted(estructuras.diccionarioNinjas.items())
     else:
         print("Opción inválida.")
         return
 
     print("\n--- Lista de Ninjas ---")
-    for nombre, atributos in ninjas_ordenados:
-        print(f"""
-            Nombre: {nombre}
-            Fuerza: {atributos[0]}
-            Agilidad: {atributos[1]}
-            Resistencia: {atributos[2]}
-            Estilo de pelea: {atributos[3]}
-            Puntos: {atributos[4]}
-            """)
+    for ninja in ninjas_ordenados:
+        print(f"Ninja: {ninja[0]} Estilo: {ninja[1]['Estilo']}")
 
 #FUNCION MENU ADMINISTRADOR
 def menuAdministrador():
@@ -40,8 +33,7 @@ def menuAdministrador():
         print("4. Actualizar Ninja")
         print("5. Eliminar Ninja")
         print("6. Crear Habilidades de Ninja")
-        print("7. Guardar Cambios")
-        print("8. Salir")
+        print("7. Salir")
         opcion = input("Seleccione una opcion: ")
         match opcion:
             case '1':
@@ -51,14 +43,13 @@ def menuAdministrador():
             case '3':
                 funcionesAdministrador.consultarNinja(funcionesAdministrador.buscarNinja())
             case '4':
-                pass#Funcion No lista
+                funcionesAdministrador.actualizarNinja(funcionesAdministrador.buscarNinja())
             case '5':
                 funcionesAdministrador.eliminarNinja(funcionesAdministrador.buscarNinja())
             case '6':
-                pass#Funcion No lista
+                funcionesAdministrador.crearHabilidadNinja()
+                archivos.guardarHabilidades()
             case '7':
-                pass#Funcion No lista
-            case '8':
                 print("Saliendo")
                 break
             case _:
