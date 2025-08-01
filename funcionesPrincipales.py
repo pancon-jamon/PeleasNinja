@@ -1,27 +1,18 @@
 import estructuras
 import archivos
 import funcionesAdministrador
+import funcionesUsuario
+
+def obtener_email_usuario(email):
+    return email
 
 def listarNinjas():
     if not estructuras.diccionarioNinjas:
         print("No hay ninjas registrados.")
         return
 
-    print("\n¿Ordenar por?")
-    print("1. Nombre (A-Z)")
-    print("2. Puntos (mayor a menor)")
-    opcion = input("Seleccione una opción: ")
-
-    if opcion == "1":
-        ninjas_ordenados = sorted(estructuras.diccionarioNinjas.items())
-    elif opcion == "2":
-        ninjas_ordenados = sorted(estructuras.diccionarioNinjas.items())
-    else:
-        print("Opción inválida.")
-        return
-
     print("\n--- Lista de Ninjas ---")
-    for ninja in ninjas_ordenados:
+    for ninja in estructuras.diccionarioNinjas.items():
         print(f"Ninja: {ninja[0]} Estilo: {ninja[1]['Estilo']}")
 
 #FUNCION MENU ADMINISTRADOR
@@ -56,21 +47,24 @@ def menuAdministrador():
                 print("Escriba una opcion valida")
 
 #FUNCION MENU USUARIO
-def menuUsuario():
+def menuUsuario(usuario_email):
     while True:
         print("1. Listar Personajes")
         print("2. Pelear contra ninjas")
         print("3. Comenzar Torneo")
-        print("4. Salir")
+        print("4. Ver Ranking")
+        print("5. Salir")
         opcion = input("Seleccione una opcion: ")
         match opcion:
             case '1':
                 listarNinjas()
             case '2':
-                pass#Funcion No lista
+                funcionesUsuario.pvp(usuario_email)
             case '3':
-                pass#Funcion No lista
+                funcionesUsuario.torneoNinja()
             case '4':
+                funcionesUsuario.mostrar_ranking()
+            case '5':
                 print("Saliendo")
                 break
             case _:
@@ -138,11 +132,12 @@ def iniciarSesion():
                     admin = int(l.split('|')[-1])
         if usuario == usuario_correcto and contraseña == contraseña_correcta:
             print("Bienvenido")
+            obtener_email_usuario(usuario_correcto)
             if admin == 1:
                 menuAdministrador()
                 break
             else:
-                menuUsuario()
+                menuUsuario(usuario)
                 break
         else:
             print("Error") 
