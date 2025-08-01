@@ -1,16 +1,17 @@
 import os
 import estructuras
-archivo_habilidades = "Archivos/habilidades_ninja.txt"
-archivo_ninjas = "Archivos/ninjas.txt"
+archivo = "habilidades_ninja.txt"
 
 def crearArchivoUsuarios():
-    if not os.path.exists("usuarios.txt"):
-        open("usuarios.txt", "w").close()
-        
+    if os.path.isfile("usuarios.txt"):
+        pass
+    else:
+        with open("usuarios.txt","w"):
+            pass
 
 def crearArchivoHabilidades():
-    if not os.path.exists(archivo_habilidades):
-        with open(archivo_habilidades, "w", encoding="utf-8") as file:
+    if not os.path.exists(archivo):
+        with open(archivo, "w", encoding="utf-8") as file:
             file.write("Estilo de pelea Tirador:\n")
             file.write(str(estructuras.estiloTirador_habilidades))
             file.write("\nEstilo de pelea Asesino:\n")
@@ -18,19 +19,49 @@ def crearArchivoHabilidades():
             file.write("\nEstilo de pelea Tanque:\n")
             file.write(str(estructuras.estiloTanque_habilidades))
 
+def guardarHabilidades():
+    if os.path.exists(archivo):
+        with open(archivo,"w",encoding="utf-8") as file:
+            file.write("Estilo de pelea Tirador:\n")
+            file.write(str(estructuras.estiloTirador_habilidades))
+            file.write("\nEstilo de pelea Asesino:\n")
+            file.write(str(estructuras.estiloAsesino_habilidades))
+            file.write("\nEstilo de pelea Tanque:\n")
+            file.write(str(estructuras.estiloTanque_habilidades))
+
+def crearArchivosNinjas():
+    if os.path.isfile("ninjas.txt"):
+        pass
+    else:
+        with open("ninjas.txt",'w'):
+            pass
+
 def cargarNinjas():
-    if os.path.exists(archivo_ninjas):
-        with open(archivo_ninjas, "r") as archivo:
+    if os.path.exists("ninjas.txt"):
+        with open("ninjas.txt", "r") as archivo:
             for linea in archivo:
                 datos = linea.strip().split("|")
                 nombre = datos[0]
-                fuerza = int(datos[1])
-                agilidad = int(datos[2])
-                resistencia = int(datos[3])
-                estilo = datos[4]
-                puntos = int(datos[5])
-                estructuras.diccionarioNinjas[nombre] = [fuerza, agilidad, resistencia, estilo, puntos]
+                estilo = datos[1]
+                fuerza = datos[2]
+                agilidad = datos[3]
+                resistencia = datos[4]
+                arbol=datos[5]
+                puntos = int(datos[6])
+                estructuras.diccionarioNinjas[nombre] = {"Estilo":estilo,
+                                             "Estadisticas":{'fuerza':fuerza,
+                                                             'agilidad':agilidad,
+                                                             'resistencia':resistencia},
+                                             "Habilidades":arbol,
+                                             "Puntos":puntos}
 
-def guardarNinja(nombre, características):
-    with open(archivo_ninjas, "a") as f:
-        f.write(f"{nombre}|{características[0]}|{características[1]}|{características[2]}|{características[3]}|{características[4]}\n")
+def guardarNinjas():
+    with open("ninjas.txt", "w") as f:
+        for ninja in estructuras.diccionarioNinjas.items():
+            f.write(f"{ninja[0]}|"
+                    f"{ninja[1]['Estilo']}|"
+                    f"{ninja[1]['Estadisticas']['fuerza']}|"
+                    f"{ninja[1]['Estadisticas']['agilidad']}|"
+                    f"{ninja[1]['Estadisticas']['resistencia']}|"
+                    f"{ninja[1]['Habilidades']}|"
+                    f"{ninja[1]['Puntos']}\n")
